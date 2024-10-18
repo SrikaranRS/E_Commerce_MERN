@@ -22,7 +22,7 @@ const ProductPage = () => {
     <div className=" min-vh-100 py-4">
        <MetaData title="Main Page" />
       <div className="container">
-        <h2 className="text-center">Latest Products</h2>
+        <h2 className="text-center">Latest Products..</h2>
         <div className="row py-5">
           {products.map(product => (
             <div className="col-md-3 mb-4" key={product.id}>
