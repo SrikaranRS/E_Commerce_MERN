@@ -20,7 +20,7 @@ const ProductDetail = () => {
     const timer = setTimeout(() => {
       setLoadingDelayed(false);
       dispatch(getProduct(params.id));
-    }, 1000);
+    }, 1500);
     console.log(product)
 
     return () => clearTimeout(timer);
