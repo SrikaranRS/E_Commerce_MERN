@@ -1,0 +1,89 @@
+.product-detail {
+    max-width: 900px; /* Keep the max width for proper layout */
+    margin: 0 auto; /* Center the component */
+    padding: 20px;
+}
+
+.product-image {
+    text-align: left; /* Center image */
+}
+
+.product-image img.product-img {
+    max-width: 110%; /* Reduce image size */
+    height: auto;
+    margin-top: 90px;
+    margin-left: -90px;
+    border-radius: 8px; /* Rounded corners for the image */
+}
+
+.product-info {
+    padding: 20px; /* Added padding for better layout */
+}
+
+.product-info h1 {
+    font-size: 26px; /* Slightly larger font for title */
+    margin-bottom: 10px;
+    color: #333; /* Darker color for better readability */
+}
+
+.product-info h2 {
+    color: #b12704; /* Price color */
+    font-size: 24px; /* Increased font size */
+    margin: 10px 0;
+}
+
+.rating-section {
+    display: flex;
+    align-items: center; /* Align items vertically */
+}
+
+.rating-section span {
+    margin-left: 10px; /* Space between rating and review count */
+}
+
+button {
+    border: none; /* Remove default border */
+    border-radius: 5px; /* Rounded corners */
+    padding: 10px 15px; /* Padding for button */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s; /* Smooth background transition */
+    margin-right: 10px; /* Space between buttons */
+}
+
+.quantity-button {
+    width: 40px; /* Fixed width for consistency */
+}
+
+.btn-danger { /* Red color for "-" button */
+    background-color: #dc3545; /* Bootstrap danger color */
+}
+
+.btn-success { /* Green color for "+" button */
+    background-color: #28a745; /* Bootstrap success color */
+}
+
+.add-to-cart-button {
+    background-color: #ffc107; /* Yellow color */
+}
+
+.quantity-display {
+    font-size: 18px; /* Larger font size for quantity */
+    margin: 0 10px; /* Space around quantity display */
+}
+
+.status {
+    font-weight: bold; /* Emphasize stock status */
+    margin-top: 10px; /* Space above status */
+}
+
+.seller-name {
+    margin-top: 10px; /* Space above seller name */
+    font-style: italic; /* Italics for seller name */
+}
+
+.description {
+    margin-top: 20px; /* Space above description */
+    line-height: 1.5;
+    font-size: 13px;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif /* Improved line height for readability */
+}

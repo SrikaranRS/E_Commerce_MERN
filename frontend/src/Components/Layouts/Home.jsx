@@ -1,46 +1,81 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { FaShoppingCart } from 'react-icons/fa';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import img1 from '../../Images/products/1.jpg';
-import img2 from '../../Images/products/2.jpg';
-import img3 from '../../Images/products/3.jpg';
-import img4 from '../../Images/products/4.jpg';
-import img5 from '../../Images/products/5.jpg';
+import './component.css';
 import MetaData from './MetaData';
+import { useDispatch, useSelector } from 'react-redux';
+import { getProduct, getProducts } from '../../actions/productsAction';
+import Loader from './Loader';
+import RatingStar from '../Reusable/RatingStar';
+import { useNavigate } from 'react-router-dom';
 
 const ProductPage = () => {
-  const products = [
-    { id: 1, title: 'Mobile', image: img1, rating: 4.5, price: '$29.99' },
-    { id: 2, title: 'Watch', image: img2, rating: 3.5, price: '$19.99' },
-    { id: 3, title: 'Laptop', image: img3, rating: 5.0, price: '$39.99' },
-    { id: 4, title: 'Earphone', image: img4, rating: 4.0, price: '$24.99' },
-    { id: 5, title: 'Shoes', image: img5, rating: 2.5, price: '$14.99' },
-  ];
+  const { products, loading, error } = useSelector(state => state.productsState);
+  const [productId, setProductId] = useState();
+  const dispatch = useDispatch();
+  const [errorMessage, setErrorMessage] = useState('');
+  const navigate=useNavigate()
+
+  useEffect(() => {
+    if (error) {
+      setErrorMessage(error);
+      setTimeout(() => {
+        setErrorMessage('');
+      }, 4000);
+    } else {
+      setErrorMessage('');
+    }
+    dispatch(getProducts());
+  }, []);
+
+  const handleView = (id) => {
+    setProductId(id);
+
+    dispatch(getProduct(id)); // Fetch product details when viewing
+    navigate(`/productDetails/${id}`)
+    
+  };
+
+  if (loading) return <Loader />;
 
   return (
-    
-    <div className=" min-vh-100 py-4">
-       <MetaData title="Main Page" />
+    <div className="min-vh-100 py-4">
+      <MetaData title="Main Page" />
       <div className="container">
         <h2 className="text-center">Latest Products..</h2>
-        <div className="row py-5">
+        {errorMessage && (
+          <div className="alert alert-danger text-center" style={{ width: '400px', margin: '0 auto' }} role="alert">
+            {errorMessage}
+          </div>
+        )}
+        <div className="row py-6">
           {products.map(product => (
-            <div className="col-md-3 mb-4" key={product.id}>
-              <div className="card shadow-lg rounded">
-                <img src={product.image} className="card-img-top p-2" alt={product.title} style={{ height: '250px', width:'250px', objectFit: 'full' }} />
+            <div className="col-md-4 mb-4" key={product._id}>
+              <div className="card shadow-lg rounded h-100" onClick={() => handleView(product._id)}>
+                <img
+                  src={product.images[0].image}
+                  className="card-img-top p-2"
+                  alt={product.name}
+                  style={{ objectFit: 'contain', height: '250px',cursor:"pointer" }}
+                />
                 <div className="card-body">
-                  <h5 className="card-title">{product.title}</h5>
-                  <p className="card-text fw-bold">{product.price}</p>
+                  <h6 className="card-title" style={{ height: "35px" }}>{product.name}</h6>
+                  <p className="card-text fw-bold mt-1">₹ {product.price}</p>
                   <div className="d-flex align-items-center">
                     <span className="text-warning" style={{ fontSize: '1.5rem' }}>
-                      {'★'.repeat(Math.floor(product.rating))}
-                      {'☆'.repeat(5 - Math.floor(product.rating))}
+                      <RatingStar rating={product.ratings} />
                     </span>
-                    <span className="text-muted ms-2">({product.rating})</span>
+                    <span className="text-muted ms-2">({product.ratings})</span>
                   </div>
-                  <a href="/product-details" className="btn btn-primary mt-2 w-50">View Details</a>
+                  <button 
+                    className="btn btn-primary mt-2 w-50" 
+                    onClick={() => handleView(product._id)}
+                    aria-label={`View details of ${product.name}`}
+
+                  >
+                    View Details
+                  </button>
                   <div className="position-absolute top-0 end-0 p-2">
-                  <button
+                    <button
                       className="bg-transparent border-0"
                       aria-label="Add to cart"
                       data-bs-toggle="tooltip"

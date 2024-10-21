@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const productSchema = new mongoose.Schema({
-    name : {
+    name: {
         type: String,
         required: [true, "Please enter product name"],
         trim: true,
@@ -45,7 +45,7 @@ const productSchema = new mongoose.Schema({
                 'Outdoor',
                 'Home'
             ],
-            message : "Please select correct category"
+            message: "Please select correct category"
         }
     },
     seller: {
@@ -63,8 +63,8 @@ const productSchema = new mongoose.Schema({
     },
     reviews: [
         {
-            user:{
-                type:mongoose.Schema.Types.ObjectId,
+            user: {
+                type: mongoose.Schema.Types.ObjectId,
                 ref: 'User'
             },
             rating: {
@@ -78,15 +78,18 @@ const productSchema = new mongoose.Schema({
         }
     ],
     user: {
-        type : mongoose.Schema.Types.ObjectId
-    }
-    ,
-    createdAt:{
+        type: mongoose.Schema.Types.ObjectId
+    },
+    createdAt: {
         type: Date,
-        default: Date.now()
+        default: Date.now
+    },
+    features: { // New field for key features
+        type: [String], // Array of strings
+        required: [true, "Please enter product features"]
     }
-})
+});
 
-let schema = mongoose.model('Product', productSchema)
+let schema = mongoose.model('Product', productSchema);
 
-module.exports = schema
+module.exports = schema;

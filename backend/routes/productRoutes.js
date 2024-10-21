@@ -4,9 +4,9 @@ const { isAuthenticatedUser, isAutherizedRoles } = require('../middlewares/authM
 const routes=express.Router();
 
 
-routes.route('/product').get(isAuthenticatedUser,isAutherizedRoles('admin','user'),getProduct)
-routes.route('/product/:id').get(isAuthenticatedUser,isAutherizedRoles('admin','user'),getSingleProduct)
-routes.route('/product/add').post(isAuthenticatedUser,isAutherizedRoles('admin','user'),newProduct)
+routes.route('/product').get(getProduct)
+routes.route('/product/:id').get(getSingleProduct)
+routes.route('/product/add').post(isAuthenticatedUser,newProduct)
 routes.route('/product/review').put(isAuthenticatedUser,createReview)
 
 routes.route('/product/getReview/:id').get(isAuthenticatedUser,getReview)

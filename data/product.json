@@ -16,7 +16,13 @@
         "seller": "Amazon",
         "stock": 5,
         "numOfReviews": 15,
-        "reviews": []
+        "reviews": [],
+        "features": [
+            "5G Connectivity",
+            "RAM Extension Feature",
+            "Brilliant Operational Speed",
+            "High-Resolution Display"
+        ]
     },
     {
         "name": "WRISTIO HD, Bluetooth Calling Smart Watch",
@@ -32,12 +38,18 @@
         "seller": "Flipkart",
         "stock": 9,
         "numOfReviews": 5,
-        "reviews": []
+        "reviews": [],
+        "features": [
+            "Bluetooth Calling",
+            "Heart Rate Monitoring",
+            "Multi-Sport Modes",
+            "Customizable Watch Faces"
+        ]
     },
     {
         "name": "Dell Inspiron 3511 Laptop",
         "price": 440.57,
-        "description": "Dell Inspiron 3511 11th Generation Intel Core i5-1135G7 Processor (8MB Cache, up to 4.2 GHz);Operating System: Windows 10 Home Single Language, English",
+        "description": "Dell Inspiron 3511 11th Generation Intel Core i5-1135G7 Processor (8MB Cache, up to 4.2 GHz); Operating System: Windows 10 Home Single Language, English",
         "ratings": 2,
         "images": [
             {
@@ -48,7 +60,13 @@
         "seller": "Ebay",
         "stock": 9,
         "numOfReviews": 12,
-        "reviews": []
+        "reviews": [],
+        "features": [
+            "11th Gen Intel Core i5 Processor",
+            "8GB RAM",
+            "256GB SSD Storage",
+            "Full HD Display"
+        ]
     },
     {
         "name": "Lenovo IdeaPad Slim 3 Laptop",
@@ -56,31 +74,43 @@
         "description": "Lenovo IdeaPad Slim 311th Gen Intel Core i5-1135G7 | Speed: 2.4 GHz (Base) - 4.2 GHz (Max) | 4 Cores | 8 Threads | 8 MB Cache",
         "ratings": 4,
         "images": [
-          {
-            "image": "/images/products/6.jpg"
-          }
+            {
+                "image": "/images/products/6.jpg"
+            }
         ],
         "category": "Laptops",
         "seller": "Ebay",
         "stock": 9,
         "numOfReviews": 12,
-        "reviews": []
-      },
-      {
+        "reviews": [],
+        "features": [
+            "Lightweight Design",
+            "Long Battery Life",
+            "Fast Charging",
+            "Built-in Webcam"
+        ]
+    },
+    {
         "name": "ASUS VivoBook 15 Laptop",
         "price": 767.32,
         "description": "ASUS VivoBook 15 15.6-inch (39.62 cm) HD, Dual Core Intel Celeron N4020, Thin and Light Laptop (4GB RAM/256GB SSD/Integrated Graphics/Windows 11 Home/Transparent Silver/1.8 Kg), X515MA-BR011W",
         "ratings": 5,
         "images": [
-          {
-            "image": "/images/products/7.jpg"
-          }
+            {
+                "image": "/images/products/7.jpg"
+            }
         ],
         "category": "Laptops",
         "seller": "Ebay",
         "stock": 9,
         "numOfReviews": 12,
-        "reviews": []
+        "reviews": [],
+        "features": [
+            "Thin and Light Design",
+            "Windows 11 Pre-installed",
+            "256GB SSD",
+            "Great Battery Life"
+        ]
     },
     {
         "name": "PTron Newly Launched Tangent Sports, 60Hrs Playtime",
@@ -96,7 +126,13 @@
         "seller": "Amazon",
         "stock": 4,
         "numOfReviews": 20,
-        "reviews": []
+        "reviews": [],
+        "features": [
+            "60+ Hours Playtime",
+            "Bluetooth 5.2",
+            "ENC Technology",
+            "Comfortable Fit"
+        ]
     },
     {
         "name": "Campus Men's Maxico Running Shoes",
@@ -112,6 +148,12 @@
         "seller": "Ebay",
         "stock": 6,
         "numOfReviews": 9,
-        "reviews": []
+        "reviews": [],
+        "features": [
+            "High Comfort Design",
+            "Lightweight",
+            "Durable Material",
+            "Suitable for Running"
+        ]
     }
 ]

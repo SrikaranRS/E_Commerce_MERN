@@ -42,3 +42,66 @@
     color: #333;
   }
   
+  /* HTML: <div class="loader"></div> */
+.loader {
+  width: 15px;
+  aspect-ratio: 1;
+  position: relative;
+  animation: l9-0 1.5s infinite steps(2);
+}
+.loader::before,
+.loader::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: #000;
+}
+.loader::before {
+  box-shadow: 26px 0;
+  transform: translateX(-26px);
+  animation: l9-1 .75s infinite linear alternate;
+}
+.loader::after {
+  transform: translateX(13px) rotate(0deg) translateX(13px);
+  animation: l9-2 .75s infinite linear alternate;
+}
+@keyframes l9-0 {
+    0% ,49.9% {transform: scale(1)}
+    50%,100%  {transform: scale(-1)}
+}
+@keyframes l9-1 {
+    100%{box-shadow: 52px 0}
+}
+@keyframes l9-2 {
+    100%{transform: translateX(13px) rotate(-180deg) translateX(13px)}
+}
+
+
+/* 
+rating */
+.star-rating .small-star {
+  font-size: 1.2rem; 
+}
+.small-star {
+  font-size: 1rem;
+}
+
+.empty-star {
+  color: transparent; 
+  position: relative; 
+  font-size: 1.2rem; 
+}
+
+.empty-star::before {
+  content: '★'; 
+  color: gold; 
+  position: absolute;
+  left: 0; 
+  top: 0; 
+  z-index: -1; 
+}
+
+.small-star {
+  font-size: 1.2rem;
+}

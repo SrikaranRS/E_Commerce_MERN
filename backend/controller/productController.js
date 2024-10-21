@@ -10,7 +10,7 @@ exports.getProduct = async (req, res, next) => {
 
         const resPerPage=3
 
-        const apiFeature= new APIFeature(productModel.find({user:req.user.id}),req.query).search().filter().paginate(resPerPage)
+        const apiFeature= new APIFeature(productModel.find(),req.query).search().filter().paginate(resPerPage)
 
         const products = await apiFeature.query
         
