@@ -7,13 +7,18 @@ import { getProduct, getProducts } from '../../actions/productsAction';
 import Loader from './Loader';
 import RatingStar from '../Reusable/RatingStar';
 import { useNavigate } from 'react-router-dom';
+import Pagination from 'react-js-pagination';
 
 const ProductPage = () => {
-  const { products, loading, error } = useSelector(state => state.productsState);
-  const [productId, setProductId] = useState();
-  const dispatch = useDispatch();
+  const { products, loading, error, totalCount, resPerPage } = useSelector(state => state.productsState);
+  const [currentPage, setCurrentPage] = useState(1);
   const [errorMessage, setErrorMessage] = useState('');
-  const navigate=useNavigate()
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const setCurrentPageNo = (pageNo) => {
+    setCurrentPage(pageNo);
+  };
 
   useEffect(() => {
     if (error) {
@@ -21,18 +26,13 @@ const ProductPage = () => {
       setTimeout(() => {
         setErrorMessage('');
       }, 4000);
-    } else {
-      setErrorMessage('');
     }
-    dispatch(getProducts());
-  }, []);
+    dispatch(getProducts(null,currentPage)); // Fetch products for the current page
+  }, [currentPage, dispatch, error]);
 
   const handleView = (id) => {
-    setProductId(id);
-
     dispatch(getProduct(id)); // Fetch product details when viewing
-    navigate(`/productDetails/${id}`)
-    
+    navigate(`/productDetails/${id}`);
   };
 
   if (loading) return <Loader />;
@@ -55,7 +55,7 @@ const ProductPage = () => {
                   src={product.images[0].image}
                   className="card-img-top p-2"
                   alt={product.name}
-                  style={{ objectFit: 'contain', height: '250px',cursor:"pointer" }}
+                  style={{ objectFit: 'contain', height: '250px', cursor: "pointer" }}
                 />
                 <div className="card-body">
                   <h6 className="card-title" style={{ height: "35px" }}>{product.name}</h6>
@@ -70,7 +70,6 @@ const ProductPage = () => {
                     className="btn btn-primary mt-2 w-50" 
                     onClick={() => handleView(product._id)}
                     aria-label={`View details of ${product.name}`}
-
                   >
                     View Details
                   </button>
@@ -88,6 +87,19 @@ const ProductPage = () => {
               </div>
             </div>
           ))}
+        </div>
+        <div className="pagination-container">
+          <Pagination
+            activePage={currentPage}
+            onChange={setCurrentPageNo}
+            totalItemsCount={totalCount}
+            itemsCountPerPage={resPerPage}
+            nextPageText={'Next'}
+            firstPageText={'First'}
+            lastPageText={'Last'}
+            itemClass={'page-item'}
+            linkClass={'page-link'}
+          />
         </div>
       </div>
     </div>

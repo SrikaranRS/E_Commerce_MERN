@@ -5,6 +5,7 @@ import { getProduct } from "../../actions/productsAction";
 import { useParams } from "react-router-dom";
 import Loader from "../Layouts/Loader";
 import RatingStar from "../Reusable/RatingStar";
+import MetaData from "../Layouts/MetaData";
 
 const ProductDetail = () => {
   const { loading, product, error } = useSelector(
@@ -21,7 +22,7 @@ const ProductDetail = () => {
       setLoadingDelayed(false);
       dispatch(getProduct(params.id));
     }, 1500);
-    console.log(product)
+ 
 
     return () => clearTimeout(timer);
   }, [dispatch, params.id]);
@@ -45,13 +46,16 @@ const ProductDetail = () => {
 
   return (
     <div className="container mt-4">
+    
       {errorMessage && (
         <div className="alert alert-danger" role="alert">
           {errorMessage}
         </div>
       )}
       {product && (
+        
         <div className="row product-detail align-items-start">
+            <MetaData title={product.name}/>
           <div className="col-md-6 product-image">
             {product.images && product.images.length > 0 && (
               <img

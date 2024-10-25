@@ -6,27 +6,28 @@ const APIFeature=require('../utils/apiFeatures.js')
 
 // Get all products
 exports.getProduct = async (req, res, next) => {
-    try {
-
-        const resPerPage=3
-
-        const apiFeature= new APIFeature(productModel.find(),req.query).search().filter().paginate(resPerPage)
-
-        const products = await apiFeature.query
-        
-        if (!products || products.length === 0) {
-            return next(new ErrorHandler('No products found', 404));
-        }
-        
-        res.status(200).json({
-            success: true,
-            message: "Successfully retrieved the product list",
-            count: products.length,
-            products 
-        });
-    } catch (error) {
-        next(new ErrorHandler('Internal Server Error', 500)); 
+    const resPerPage = 6;
+    
+    let buildQuery = () => {
+        return new APIFeature(productModel.find(), req.query).search().filter()
     }
+    
+    const filteredProductsCount = await buildQuery().query.countDocuments({})
+    const totalProductsCount = await productModel.countDocuments({});
+    let productsCount = totalProductsCount;
+
+    if(filteredProductsCount !== totalProductsCount) {
+        productsCount = filteredProductsCount;
+    }
+    
+    const products = await buildQuery().paginate(resPerPage).query;
+
+    res.status(200).json({
+        success : true,
+        count: productsCount,
+        resPerPage,
+        products
+    })
 };
 exports.getSingleProduct = async (req, res, next) => {
     const {id}=req.params

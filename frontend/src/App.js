@@ -5,6 +5,7 @@ import ProductPage from "./Components/Layouts/Home";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 import ProductDetail from "./Components/Product/ProductDetail";
+import ProductSearch from "./Components/Product/ProductSearch";
 
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
             <Routes>
               <Route path="/" element={<ProductPage />} />
               <Route path="/productDetails/:id" element={<ProductDetail/>}/>
+              <Route path="/product/:keyword" element={<ProductSearch/>}/>
             </Routes>
           </HelmetProvider>
         </main>
