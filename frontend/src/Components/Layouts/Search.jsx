@@ -1,10 +1,19 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaSearch } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const Search = () => {
   const [input, setInput] = useState("");
   const navigate = useNavigate();
+
+  const location=useLocation()
+  console.log(location.pathname)
+
+  useEffect(()=>{
+    if(location.pathname==='/'){
+      clearKeyword()
+    }
+  },[location])
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -14,8 +23,14 @@ const Search = () => {
 
     }
 
-    setInput("")
   };
+
+  const clearKeyword=()=>{
+
+    
+    setInput("")
+
+  }
 
   return (
     <div className="w-100">

@@ -2,12 +2,20 @@ import { productFailure, productSuccess } from "../Slices/productSlice";
 import { productsFailure, productsRequest, productsSuccess } from "../Slices/productsSlice";
 import axios from 'axios';
 
-export const getProducts = (keyword, page) => async (dispatch) => {
+export const getProducts = (keyword,price, page,category) => async (dispatch) => {
     dispatch(productsRequest());
 
     let link = `http://localhost:5010/api/v1/product?page=${page}`;
     if (keyword) {
         link += `&keyword=${keyword}`;
+    }
+
+    if(price) {
+        link += `&price[gte]=${price[0]}&price[lte]=${price[1]}`
+    }
+
+    if(category) {
+        link += `&category=${category}`
     }
 
     try {

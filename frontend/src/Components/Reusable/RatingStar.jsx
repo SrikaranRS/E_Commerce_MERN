@@ -1,17 +1,21 @@
 import React from "react";
-import { FaStar, FaStarHalfAlt } from 'react-icons/fa'; // Importing the half star icon
+import { FaStar } from 'react-icons/fa'; // Importing the full star icon
 import '../Layouts/component.css'; // Adjust the path as necessary
 
 const RatingStar = ({ rating }) => {
-  const fullStars = Math.floor(rating);
-  const halfStar = rating % 1 >= 0.5 ? 1 : 0;
-  const emptyStars = 5 - fullStars - halfStar;
+  const fullStars = Math.floor(rating); // Calculate full stars
+  const emptyStars = 5 - fullStars; // Calculate empty stars
 
   return (
     <div className="star-rating" style={{ display: "flex", alignItems: "center" }}>
-      {Array(fullStars).fill(<FaStar className="text-warning small-star" />)}
-      {halfStar ? <FaStarHalfAlt className="text-warning small-star" /> : null}
-      
+      {/* Render full stars */}
+      {Array(fullStars).fill().map((_, index) => (
+        <FaStar key={index} className="text-warning small-star" />
+      ))}
+      {/* Render empty stars */}
+      {Array(emptyStars).fill().map((_, index) => (
+        <FaStar key={index + fullStars} className="text-muted small-star" style={{ opacity: 0.5 }} />
+      ))}
     </div>
   );
 };

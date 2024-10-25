@@ -143,3 +143,40 @@ rating */
   border: 1px solid #007bff; /* Match border color */
   pointer-events: none; /* Disable pointer events for active */
 }
+
+.row {
+  margin-top: 20px; /* Adjust the space between filter and products */
+}
+
+.card {
+  transition: transform 0.2s;
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+.container {
+  transition: margin-left 0.3s;
+}
+/* 
+.filter-panel {
+  padding: 15px; 
+  background-color: #f8f9fa; 
+  border: 1px solid #dee2e6; 
+  border-radius: 5px; 
+}
+ */
+.filter-panel {
+  overflow: hidden; /* Prevents overflow during transition */
+  transition: max-height 0.5s ease; /* Transition for max-height */
+  max-height: 0; /* Start with collapsed height */
+}
+
+.filter-panel.open {
+  max-height: 500px; /* Adjust this value based on content height */
+}
+
+.filter-panel.closed {
+  max-height: 0; /* Collapse height */
+}

@@ -27,7 +27,7 @@ const ProductPage = () => {
         setErrorMessage('');
       }, 4000);
     }
-    dispatch(getProducts(null,currentPage)); // Fetch products for the current page
+    dispatch(getProducts(null,null,currentPage,null)); // Fetch products for the current page
   }, [currentPage, dispatch, error]);
 
   const handleView = (id) => {
@@ -64,15 +64,16 @@ const ProductPage = () => {
                     <span className="text-warning" style={{ fontSize: '1.5rem' }}>
                       <RatingStar rating={product.ratings} />
                     </span>
-                    <span className="text-muted ms-2">({product.ratings})</span>
+                    <span className="text-muted ms-2">({product.numOfReviews})</span>
                   </div>
-                  <button 
-                    className="btn btn-primary mt-2 w-50" 
-                    onClick={() => handleView(product._id)}
-                    aria-label={`View details of ${product.name}`}
-                  >
-                    View Details
-                  </button>
+                 
+                  <button
+                        className="btn btn-primary mt-2 w-100"
+                        onClick={() => handleView(product._id)}
+                        aria-label={`View details of ${product.name}`}
+                      >
+                        View Details
+                      </button>
                   <div className="position-absolute top-0 end-0 p-2">
                     <button
                       className="bg-transparent border-0"
