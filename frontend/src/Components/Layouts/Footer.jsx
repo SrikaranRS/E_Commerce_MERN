@@ -5,7 +5,7 @@ const Footer = () => {
   return (
     <footer className="bg-dark text-light py-4">
       <div className="container text-center">
-        <p>&copy; {new Date().getFullYear()} ARRoCART. All Rights Reserved.</p>
+        <p>&copy; {new Date().getFullYear()} ARRoMARKET. All Rights Reserved.</p>
         <div>
           <a href="/facebook" className="text-light me-3">
             <FaFacebook size={24} />
