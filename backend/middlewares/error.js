@@ -28,4 +28,11 @@ module.exports = (err, req, res, next) => {
       message: message || "Internal Server Error",
     });
   }
+  
+  if(err.code == 11000) {
+    let message = `Duplicate ${Object.keys(err.keyValue)} error`;
+    error = new Error(message)
+    err.statusCode = 400
+}
+
 };

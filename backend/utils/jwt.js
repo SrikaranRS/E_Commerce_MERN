@@ -1,25 +1,24 @@
 const sendToken = (user, statusCode, res) => {
-
-    //Creating JWT Token
+    // Creating JWT Token
     const token = user.getJwtToken();
 
-    //setting cookies 
+    // Setting cookies 
     const options = {
         expires: new Date(
-                Date.now() + process.env.COOKIE_EXPIRES_TIME  * 24 * 60 * 60 * 1000 
-            ),
+            Date.now() + process.env.COOKIE_EXPIRES_TIME * 24 * 60 * 60 * 1000
+        ),
         httpOnly: true,
-    }
+        secure: process.env.NODE_ENV === "production", // Ensure secure only in production
+        sameSite: 'Strict', // Adjust as necessary
+    };
 
     res.status(statusCode)
-    .cookie('token', token, options)
-    .json({
-        success: true,
-        token,
-        user
-    })
-
-
+        .cookie('token', token, options)
+        .json({
+            success: true,
+            token,
+            user,
+        });
 }
 
 module.exports = sendToken;

@@ -20,9 +20,9 @@ exports.getUser=async(req,res)=>{
     
 }
 exports.registerUser = catchAsync(async (req, res, next) => {
-    const {name, email, password } = req.body
+    const {name, email, password,avatar } = req.body
 
-    let avatar;
+   // let avatar;
     
     let BASE_URL = process.env.BACKEND_URL;
     if(process.env.NODE_ENV === "production"){
@@ -31,6 +31,12 @@ exports.registerUser = catchAsync(async (req, res, next) => {
 
     if(req.file){
         avatar = `${BASE_URL}/uploads/user/${req.file.originalname}`
+    }
+
+    const emailExist=await userModal.findOne({email})
+
+    if(emailExist){
+        return next(new ErrorHandler('Email already exist', 401))
     }
 
     const user = await userModal.create({

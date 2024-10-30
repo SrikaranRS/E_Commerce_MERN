@@ -6,8 +6,9 @@ app.use(express.json())
 app.use(cookieParser())
 const cors=require('cors')
 
-app.use(cors())
-
+app.use(cors({
+    credentials: true, // Allow cookies to be sent
+}));
 const errorMiddleware = require('./middlewares/error');
 const connectDatabase=require('./config/database')
 const productRoute=require('./routes/productRoutes')
