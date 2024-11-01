@@ -161,11 +161,8 @@ exports.resetPassword = catchAsync( async (req, res, next) => {
  exports.getProfile=catchAsync(async(req,res,next)=>{
 
     const user=await userModal.findById(req.user.id);
-    res.status(200).json({
-        success:true,
-        user
-    }
-    )
+   
+    sendToken(user, 201, res)
  })
  exports.changePassword=catchAsync(async(req,res,next)=>{
     

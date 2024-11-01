@@ -3,13 +3,17 @@ import logo from "../../Images/ARRo-removebg-preview.png";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../Layouts/Loader";
 import MetaData from "../Layouts/MetaData";
-import { register } from "../../actions/userActions";
+import { clearError, register } from "../../actions/userActions";
+import { useNavigate } from "react-router-dom";
 
 const avatars = [
-  { src: "/images/avatar/boy.png", label: "Avatar 1" },
-  { src: "/images/avatar/girl.png", label: "Avatar 2" },
-  { src: "/images/avatar/woman.png", label: "Avatar 3" },
-  { src: "/images/avatar/gamer.png", label: "Avatar 4" },
+  { src: "/images/avatar/boy.png", label: "Boy" },
+  { src: "/images/avatar/girl.png", label: "Girl" },
+  { src: "/images/avatar/woman.png", label: "Woman" },
+  { src: "/images/avatar/gamer.png", label: "Gamer" },
+  { src: "/images/avatar/woman(2).png", label: "Woman" },
+  { src: "/images/avatar/hacker.png", label: "Techie" },
+  
 ];
 
 const Signup = () => {
@@ -17,48 +21,38 @@ const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [avatar, setAvatar] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
-  const [successMessage, setSuccessMessage] = useState(""); // New state for success message
-  const { loading, error,isAuthenticated } = useSelector((state) => state.authState);
+  const { loading, error, isAuthenticated } = useSelector((state) => state.authState);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [errorMessage, setErrorMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
 
   useEffect(() => {
+    
+    dispatch(clearError())
+    if (isAuthenticated) {
+        navigate("/login"); 
+    
+    }
     if (error) {
       setErrorMessage(error);
       setTimeout(() => {
         setErrorMessage("");
       }, 4000);
     }
-  }, [error]);
+  }, [error,isAuthenticated, navigate,dispatch]);
 
-  useEffect(() => {
-    if (successMessage) {
-      setTimeout(() => {
-        setSuccessMessage("");
-      }, 4000);
-    }
-  }, [successMessage]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    //console.log({ name, email, password, avatar });
-    dispatch(register(name, email, password, avatar))
-   setName("")
-   setEmail("")
-   setPassword("")
-  setAvatar("")
+    dispatch(register(name, email, password, avatar));
   };
-
-  useEffect(()=>{
-    if(isAuthenticated){
-      setSuccessMessage("Registration successful! Login now"); 
-    }
-  },[isAuthenticated])
 
   if (loading) return <Loader />;
 
   return (
-    <>
+    < >
+    <div className="p-4">
       <MetaData title="Signup" />
 
       {errorMessage && (
@@ -81,32 +75,14 @@ const Signup = () => {
         </div>
       )}
 
-      <div
-        className="container-fluid vh-100 d-flex justify-content-center align-items-center"
-        style={{ backgroundColor: "white" }}
-      >
-        <div
-          className="card p-4"
-          style={{
-            width: "25rem",
-            backgroundColor: "#f0f9ff",
-            boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-          }}
-        >
-          <img
-            src={logo}
-            alt="logo"
-            className="img-fluid mx-auto"
-            style={{ height: "60px", width: "100px" }}
-          />
-
+      <div className="container-fluid vh-100 d-flex justify-content-center align-items-center" style={{ backgroundColor: "white" }}>
+        <div className="card p-4" style={{ width: "25rem", backgroundColor: "#f0f9ff", boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)" }}>
+          <img src={logo} alt="logo" className="img-fluid mx-auto" style={{ height: "60px", width: "100px" }} />
           <h4 className="text-center text-info mt-3">Sign Up</h4>
 
           <form onSubmit={handleSubmit}>
             <div className="mb-4">
-              <label htmlFor="name" className="form-label">
-                Name
-              </label>
+              <label htmlFor="name" className="form-label">Name</label>
               <input
                 type="text"
                 className="form-control"
@@ -117,9 +93,7 @@ const Signup = () => {
               />
             </div>
             <div className="mb-4">
-              <label htmlFor="email" className="form-label">
-                Email address
-              </label>
+              <label htmlFor="email" className="form-label">Email address</label>
               <input
                 type="email"
                 className="form-control"
@@ -130,9 +104,7 @@ const Signup = () => {
               />
             </div>
             <div className="mb-4">
-              <label htmlFor="password" className="form-label">
-                Password
-              </label>
+              <label htmlFor="password" className="form-label">Password</label>
               <input
                 type="password"
                 className="form-control"
@@ -143,10 +115,8 @@ const Signup = () => {
               />
             </div>
             <div className="mb-4">
-              <label htmlFor="avatar" className="form-label">
-                Choose an Avatar
-              </label>
-              <div className="d-flex align-items-center ">
+              <label htmlFor="avatar" className="form-label">Choose an Avatar</label>
+              <div className="d-flex align-items-center">
                 <select
                   className="form-select me-2"
                   id="avatar"
@@ -165,30 +135,21 @@ const Signup = () => {
                   <img
                     src={avatar}
                     alt="Selected Avatar"
-                    style={{
-                      width: "60px",
-                      height: "50px",
-                      borderRadius: "50%",
-                    }}
+                    style={{ width: "60px", height: "50px", borderRadius: "50%" }}
                   />
                 )}
               </div>
             </div>
-            <button
-              type="submit"
-              className="btn btn-info w-100"
-              style={{ color: "white" }}
-            >
+            <button type="submit" className="btn btn-info w-100" style={{ color: "white" }}>
               Sign Up
             </button>
           </form>
 
           <div className="mt-3 text-center">
-            <a href="/login" className="text-info">
-              Already have an account? Login
-            </a>
+            <a href="/login" className="text-info">Already have an account? Login</a>
           </div>
         </div>
+      </div>
       </div>
     </>
   );

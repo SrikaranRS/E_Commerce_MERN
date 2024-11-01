@@ -3,7 +3,7 @@ import { productsFailure, productsRequest, productsSuccess } from "../Slices/pro
 import axios from 'axios';
 
 export const getProducts = (keyword,price, page,category) => async (dispatch) => {
-    dispatch(productsRequest());
+   // dispatch(productsRequest());
 
     let link = `http://localhost:5010/api/v1/product?page=${page}`;
     if (keyword) {

@@ -10,12 +10,14 @@ import Login from "./Components/User/Login";
 import Signup from "./Components/User/Signup";
 import ForgotPassword from "./Components/User/ForgotPassword";
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch} from "react-redux";
 import { loadUser } from "./actions/userActions";
+
 
 function App() {
   const dispatch = useDispatch();
 
+  
   useEffect(() => {
     dispatch(loadUser());
   }, [dispatch]);
@@ -30,10 +32,9 @@ function App() {
               <Route path="/" element={<ProductPage />} />
               <Route path="/productDetails/:id" element={<ProductDetail />} />
               <Route path="/product/:keyword" element={<ProductSearch />} />
-              
               <Route path="/signup" element={<Signup />} />
               <Route path="/forgotpassword" element={<ForgotPassword />} />
-              <Route path="/login" element={<Login/>}/>
+              <Route path="/login" element={<Login />} />
             </Routes>
           </HelmetProvider>
         </main>
