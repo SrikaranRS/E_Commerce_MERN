@@ -23,4 +23,27 @@ body {
   .btn-primary:hover {
     background-color: #0056b3;
   }
+
   
+/* profile */
+body {
+  font-family: 'Roboto', sans-serif; /* Set Roboto as the default font */
+}
+
+.profile-header {
+  font-family: 'Montserrat', sans-serif; /* Montserrat for the header */
+  font-size: 2.5rem; /* Larger font size */
+  color: #333; /* Darker color for contrast */
+}
+
+.profile-heading {
+  font-family: 'Montserrat', sans-serif; /* Montserrat for section headings */
+  font-size: 1.2rem; /* Slightly larger for section headings */
+  margin-top: 1rem; /* Space above headings */
+  color: #7d7d7d; /* Grey color for headings */
+}
+
+.profile-text {
+  font-size: 1.1rem; /* Slightly larger than default */
+  color: #555; /* A softer color for the text */
+}

@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
-import logo from "../../Images/ARRo-removebg-preview.png";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../Layouts/Loader";
 import MetaData from "../Layouts/MetaData";
-import { clearError, register } from "../../actions/userActions";
+import { clearError, updateProfile } from "../../actions/userActions"; 
 import { useNavigate } from "react-router-dom";
 
 const avatars = [
@@ -13,75 +12,53 @@ const avatars = [
   { src: "/images/avatar/gamer.png", label: "Gamer" },
   { src: "/images/avatar/woman (2).png", label: "Woman" },
   { src: "/images/avatar/hacker.png", label: "Techie" },
-  
 ];
 
-const Signup = () => {
+const EditProfile = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [avatar, setAvatar] = useState("");
-  const { loading, error, isAuthenticated } = useSelector((state) => state.authState);
+  const { loading, error, isAuthenticated, user } = useSelector((state) => state.authState);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState("");
-  // eslint-disable-next-line
-  const [successMessage, setSuccessMessage] = useState("");
 
-  useEffect(() => {
-    
-    dispatch(clearError())
-    if (isAuthenticated) {
-        navigate("/login"); 
-    
-    }
-    if (error) {
-      setErrorMessage(error);
-      setTimeout(() => {
-        setErrorMessage("");
-      }, 4000);
-    }
-  }, [error,isAuthenticated, navigate,dispatch]);
-
-
-  const handleSubmit = (e) => {
+  const submitHandler  = (e) =>{
     e.preventDefault();
-    dispatch(register(name, email, password, avatar));
-  };
+    const formData = new FormData();
+    formData.append('name', name)
+    formData.append('email', email)
+    formData.append('avatar', avatar);
+    dispatch(updateProfile(formData))
+    navigate('/profile')
+}
+
+useEffect(() => {
+    if(user) {
+        setName(user.name);
+        setEmail(user.email);
+        setAvatar(user.avatar)
+    }
+},[user])
+  
 
   if (loading) return <Loader />;
 
   return (
-    < >
     <div className="p-4">
-      <MetaData title="Signup" />
+      <MetaData title="Edit Profile" />
 
       {errorMessage && (
-        <div
-          className="alert alert-danger text-center mt-4"
-          style={{ width: "400px", margin: "0 auto" }}
-          role="alert"
-        >
+        <div className="alert alert-danger text-center mt-4" role="alert">
           {errorMessage}
-        </div>
-      )}
-
-      {successMessage && (
-        <div
-          className="alert alert-success text-center mt-4"
-          style={{ width: "400px", margin: "0 auto" }}
-          role="alert"
-        >
-          {successMessage}
         </div>
       )}
 
       <div className="container-fluid vh-100 d-flex justify-content-center align-items-center" style={{ backgroundColor: "white" }}>
         <div className="card p-4" style={{ width: "25rem", backgroundColor: "#f0f9ff", boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)" }}>
-          <img src={logo} alt="logo" className="img-fluid mx-auto" style={{ height: "60px", width: "100px" }} />
-          <h4 className="text-center text-info mt-3">Sign Up</h4>
+          <h4 className="text-center text-info mt-3">Edit Profile</h4>
 
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={submitHandler}>
             <div className="mb-4">
               <label htmlFor="name" className="form-label">Name</label>
               <input
@@ -101,17 +78,6 @@ const Signup = () => {
                 id="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                required
-              />
-            </div>
-            <div className="mb-4">
-              <label htmlFor="password" className="form-label">Password</label>
-              <input
-                type="password"
-                className="form-control"
-                id="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
                 required
               />
             </div>
@@ -142,18 +108,13 @@ const Signup = () => {
               </div>
             </div>
             <button type="submit" className="btn btn-info w-100" style={{ color: "white" }}>
-              Sign Up
+              Update Profile
             </button>
           </form>
-
-          <div className="mt-3 text-center">
-            <a href="/login" className="text-info">Already have an account? Login</a>
-          </div>
         </div>
       </div>
-      </div>
-    </>
+    </div>
   );
 };
 
-export default Signup;
+export default EditProfile;

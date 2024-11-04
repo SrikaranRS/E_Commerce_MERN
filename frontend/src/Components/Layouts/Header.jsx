@@ -4,8 +4,7 @@ import logo from "../../Images/ARRo-removebg-preview.png";
 import Search from "./Search";
 import { useLocation, useNavigate, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { logOutUser } from "../../Slices/authSlice";
-import { FaSignOutAlt } from "react-icons/fa"; // Import the logout icon
+import { FaSignOutAlt,FaUserCircle } from "react-icons/fa"; // Import the logout icon
 import "./component.css"; // Import your custom CSS file for styling
 import { logoutUsers } from "../../actions/userActions";
 
@@ -64,13 +63,20 @@ const Header = () => {
                     
                 <FaSignOutAlt className="ms-4" />
                   </div>
+                </li><hr/>
+                <li>
+                  <div onClick={()=>{navigate('/profile')}}className="ms-4" style={{cursor:"pointer"}}>
+                    Profile
+                    
+                <FaUserCircle className="ms-4" />
+                  </div>
                 </li>
            
               </ul>
             </div>
           ) : (
             <>
-              {location.pathname !== "/login" && location.pathname !== "/signup" && location.pathname !== "/forgotpassword" ? (
+              {location.pathname !== "/login" && location.pathname !== "/signup" && location.pathname !== "/forgotpassword"  && location.pathname !== "/password/reset" ? (
                 <>
                   <Link to="/login" className="btn btn-warning me-2" style={{ minWidth: "100px" }} aria-label="Login">
                     Login

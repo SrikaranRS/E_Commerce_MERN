@@ -6,7 +6,9 @@ const authSlice = createSlice({
     loading: false,
     isAuthenticated: false,
     error: null,
-    //token:null
+    token: null,
+    isUpdated: false,
+    message:null
   },
   reducers: {
     loginRequest(state, action) {
@@ -19,14 +21,14 @@ const authSlice = createSlice({
       state.isAuthenticated = true;
       state.user = action.payload.user;
       state.error = null;
-   //   state.token=action.payload.token
+      state.token = action.payload.token;
     },
     loginFailure(state, action) {
       state.loading = false;
       state.isAuthenticated = false;
       state.error = action.payload;
     },
-   
+
     registerRequest(state, action) {
       state.loading = true;
       state.isAuthenticated = false;
@@ -52,12 +54,14 @@ const authSlice = createSlice({
       state.loading = false;
       state.isAuthenticated = true;
       state.user = action.payload.user;
+
+      state.token = action.payload.token;
       state.error = null;
     },
     loadUserFailure(state, action) {
       state.loading = false;
-      state.isAuthenticated = false;/* 
-      state.error = action.payload; */
+      state.isAuthenticated = false;
+      // state.error = action.payload;
     },
     logOutUserLoad(state, action) {
       state.loading = true;
@@ -67,21 +71,81 @@ const authSlice = createSlice({
       state.isAuthenticated = false;
       state.user = null;
     },
-    logOutFailure(state, action){
-
+    logOutFailure(state, action) {
       state.loading = false;
       state.isAuthenticated = false;
       state.user = null;
-      state.error=action.payload
+      state.error = action.payload;
+    },
+    clearErrorstate(state, action) {
+      state.loading = false;
+      state.isAuthenticated = false;
+      state.error = null;
+    },
+    updateProfileRequest(state, action) {
+      state.loading = true;
+      state.isUpdated = false;
+    },
+    updateProfileSuccess(state, action) {
+      state.loading = false;
+      state.user = action.payload.user;
+      state.isUpdated = true;
+    },
+    updateProfileFail(state, action) {
+      state.loading = false;
+      state.error = action.payload;
+    },
+    updatePasswordrequest(state, action) {
+      state.loading = true;
+      state.isUpdated = false;
+    },
+    updatePasswordSuccess(state, action) {
+      state.loading = false;
+      // state.user = action.payload.message;
+      state.error = null;
+      state.message = action.payload.message;
 
-    }
-    ,
+      state.isUpdated = true;
+    },
+    updatePasswordFail(state, action) {
+      state.loading = false;
+      state.error = action.payload;
+      state.message = null;
+    },
 
-    clearErrorstate(state,action){
-      state.loading=false;
-      state.isAuthenticated=false;
-      state.error=null;
-    }
+    forgotPasswordrequest(state, action) {
+      state.loading = true;
+      state.isUpdated = false;
+      state.message = null;
+    },
+    forgotPasswordSuccess(state, action) {
+      state.loading = false;
+      // state.user = action.payload.message;
+      state.error = null;
+      state.message = action.payload.message;
+    },
+    forgotPasswordFail(state, action) {
+      state.loading = false;
+      state.error = action.payload;
+      state.message = null;
+    },
+    resetPasswordRequest(state, action) {
+      state.loading = true;
+      state.error = null;
+      state.message = null;
+    },
+    resetPasswordSuccess(state, action) {
+      state.loading = false;
+      state.isAuthenticated=true;
+      state.user = action.payload.user;
+      state.error = null;
+      state.message = null;
+    },
+    resetPasswordFail(state, action) {
+      state.loading = false;
+      state.error = action.payload;
+      state.message = null;
+    },
   },
 });
 
@@ -98,7 +162,19 @@ export const {
   logOutUser,
   logOutUserLoad,
   logOutFailure,
-  clearErrorstate
+  clearErrorstate,
+  updateProfileRequest,
+  updateProfileSuccess,
+  updateProfileFail,
+  updatePasswordFail,
+  updatePasswordSuccess,
+  updatePasswordrequest,
+  forgotPasswordrequest,
+  forgotPasswordSuccess,
+  forgotPasswordFail,
+  resetPasswordRequest,
+  resetPasswordSuccess,
+  resetPasswordFail,
 } = authSlice.actions;
 
 export default authSlice.reducer;

@@ -10,17 +10,34 @@ import Login from "./Components/User/Login";
 import Signup from "./Components/User/Signup";
 import ForgotPassword from "./Components/User/ForgotPassword";
 import { useEffect } from "react";
-import { useDispatch} from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { loadUser } from "./actions/userActions";
-
-
+import Cookies from 'js-cookie';
+import EditProfile from "./Components/User/EditProfile";
+import Profile from "./Components/User/Profile"
+import ProtectedRoute from "./Components/route/ProtectedRoute"
+import ChangePassword from "./Components/User/ChangePassword";
+import ResetPassword from "./Components/User/ResetPassword";
 function App() {
   const dispatch = useDispatch();
+  const {  token } = useSelector((state) => state.authState);
 
-  
   useEffect(() => {
     dispatch(loadUser());
   }, [dispatch]);
+
+  useEffect(() => {
+    console.log(token,'toke')
+    if (token) {
+      Cookies.set('token', token, { expires: 7 });
+      localStorage.setItem('token', token);
+    } else {
+      Cookies.remove('token');
+      localStorage.removeItem('token');
+    }
+  }, [token]);
+
+
 
   return (
     <Router>
@@ -34,7 +51,11 @@ function App() {
               <Route path="/product/:keyword" element={<ProductSearch />} />
               <Route path="/signup" element={<Signup />} />
               <Route path="/forgotpassword" element={<ForgotPassword />} />
+              <Route path="/password/reset/:token" element={<ResetPassword/>}/>
               <Route path="/login" element={<Login />} />
+              <Route path="/profile" element={<ProtectedRoute><Profile/></ProtectedRoute>}/>   
+              <Route path="/profile/editprofile" element={<ProtectedRoute><EditProfile/></ProtectedRoute>}/>
+              <Route path="/profile/changepassword" element={<ProtectedRoute><ChangePassword/></ProtectedRoute>}/>
             </Routes>
           </HelmetProvider>
         </main>

@@ -10,7 +10,7 @@ routes.route('/logout').post(logoutUser)
 routes.post('/forgotpassword', forgotPassword);
 routes.post('/resetpassword/:token', resetPassword);
 routes.route('/getProfile').get(isAuthenticatedUser,getProfile)
-routes.route('/changePassword').post(isAuthenticatedUser,changePassword)
+routes.route('/changePassword').put(isAuthenticatedUser,changePassword)
 routes.route('/updateProfile').put(isAuthenticatedUser,updateProfile)
 
 //admin

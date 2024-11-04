@@ -184,9 +184,9 @@ exports.resetPassword = catchAsync( async (req, res, next) => {
  
  exports.updateProfile=catchAsync(async(req,res,next)=>{
 
-    const {email,name}=req.body;
+    const {email,name,avatar}=req.body;
     
-    const user= await userModal.findByIdAndUpdate(req.user.id,{email,name},{new:true,runValidators:true})
+    const user= await userModal.findByIdAndUpdate(req.user.id,{email,name,avatar},{new:true,runValidators:true})
 
     res.status(200).json({
         success:true,

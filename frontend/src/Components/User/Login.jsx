@@ -39,6 +39,20 @@ const Login = () => {
   
   };
 
+  
+/* 
+  useEffect(() => {
+    if (token) {
+      // Store token in both cookies and local storage
+      Cookies.set('token', token, { expires: 7 });
+      localStorage.setItem('token', token);
+    } else {
+      // Remove token from cookies and local storage if it doesn't exist
+      Cookies.remove('token');
+      localStorage.removeItem('token');
+    }
+  }, []); */
+
   return (
     <div>
       <MetaData title="Login" />
