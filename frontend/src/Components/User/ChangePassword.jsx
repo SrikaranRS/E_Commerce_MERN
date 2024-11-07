@@ -3,12 +3,8 @@ import logo from "../../Images/ARRo-removebg-preview.png";
 import MetaData from "../Layouts/MetaData";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../Layouts/Loader";
-import {
-  clearError,
-  loadUser,
-  updatePassword,
-} from "../../actions/userActions";
-import { useNavigate } from "react-router-dom";
+import {updatePassword} from "../../actions/userActions";
+//import { useNavigate } from "react-router-dom";
 
 const ChangePassword = () => {
   const [oldPassword, setOldPassword] = useState("");
@@ -17,10 +13,10 @@ const ChangePassword = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
 
-  const { loading, isUpdated, error, message } = useSelector(
+  const { loading,error, message } = useSelector(
     (state) => state.authState
   );
-  const navigate = useNavigate();
+ // const navigate = useNavigate();
   const dispatch = useDispatch();
 
   useEffect(() => {

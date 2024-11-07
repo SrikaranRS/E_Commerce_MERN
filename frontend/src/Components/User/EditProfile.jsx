@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../Layouts/Loader";
 import MetaData from "../Layouts/MetaData";
-import { clearError, updateProfile } from "../../actions/userActions"; 
+import { clearError, updateProfile } from "../../actions/userActions";
 import { useNavigate } from "react-router-dom";
 
 const avatars = [
@@ -18,29 +18,37 @@ const EditProfile = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [avatar, setAvatar] = useState("");
-  const { loading, error, isAuthenticated, user } = useSelector((state) => state.authState);
+  const { loading, error, isAuthenticated, user } = useSelector(
+    (state) => state.authState
+  );
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
 
-  const submitHandler  = (e) =>{
+  const submitHandler = (e) => {
     e.preventDefault();
     const formData = new FormData();
-    formData.append('name', name)
-    formData.append('email', email)
-    formData.append('avatar', avatar);
-    dispatch(updateProfile(formData))
-    navigate('/profile')
-}
+    formData.append("name", name);
+    formData.append("email", email);
+    formData.append("avatar", avatar);
+    dispatch(updateProfile(formData));
+    // navigate('/profile')
+    
+    setSuccessMessage("Profile Updated Successfully");
+      setTimeout(() => {
+        setSuccessMessage(false)
+      }, 2000);
+    
+  };
 
-useEffect(() => {
-    if(user) {
-        setName(user.name);
-        setEmail(user.email);
-        setAvatar(user.avatar)
+  useEffect(() => {
+    if (user) {
+      setName(user.name);
+      setEmail(user.email);
+      setAvatar(user.avatar);
     }
-},[user])
-  
+  }, [user]);
 
   if (loading) return <Loader />;
 
@@ -54,13 +62,31 @@ useEffect(() => {
         </div>
       )}
 
-      <div className="container-fluid vh-100 d-flex justify-content-center align-items-center" style={{ backgroundColor: "white" }}>
-        <div className="card p-4" style={{ width: "25rem", backgroundColor: "#f0f9ff", boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)" }}>
+      {successMessage && (
+        <div className="alert alert-success text-center mt-4" role="alert">
+          {successMessage}
+        </div>
+      )}
+
+      <div
+        className="container-fluid vh-100 d-flex justify-content-center align-items-center"
+        style={{ backgroundColor: "white" }}
+      >
+        <div
+          className="card p-4"
+          style={{
+            width: "25rem",
+            backgroundColor: "#f0f9ff",
+            boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+          }}
+        >
           <h4 className="text-center text-info mt-3">Edit Profile</h4>
 
           <form onSubmit={submitHandler}>
             <div className="mb-4">
-              <label htmlFor="name" className="form-label">Name</label>
+              <label htmlFor="name" className="form-label">
+                Name
+              </label>
               <input
                 type="text"
                 className="form-control"
@@ -71,7 +97,9 @@ useEffect(() => {
               />
             </div>
             <div className="mb-4">
-              <label htmlFor="email" className="form-label">Email address</label>
+              <label htmlFor="email" className="form-label">
+                Email address
+              </label>
               <input
                 type="email"
                 className="form-control"
@@ -82,7 +110,9 @@ useEffect(() => {
               />
             </div>
             <div className="mb-4">
-              <label htmlFor="avatar" className="form-label">Choose an Avatar</label>
+              <label htmlFor="avatar" className="form-label">
+                Choose an Avatar
+              </label>
               <div className="d-flex align-items-center">
                 <select
                   className="form-select me-2"
@@ -102,12 +132,20 @@ useEffect(() => {
                   <img
                     src={avatar}
                     alt="Selected Avatar"
-                    style={{ width: "60px", height: "50px", borderRadius: "50%" }}
+                    style={{
+                      width: "60px",
+                      height: "50px",
+                      borderRadius: "50%",
+                    }}
                   />
                 )}
               </div>
             </div>
-            <button type="submit" className="btn btn-info w-100" style={{ color: "white" }}>
+            <button
+              type="submit"
+              className="btn btn-info w-100"
+              style={{ color: "white" }}
+            >
               Update Profile
             </button>
           </form>

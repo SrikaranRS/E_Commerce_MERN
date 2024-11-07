@@ -18,9 +18,10 @@ import Profile from "./Components/User/Profile"
 import ProtectedRoute from "./Components/route/ProtectedRoute"
 import ChangePassword from "./Components/User/ChangePassword";
 import ResetPassword from "./Components/User/ResetPassword";
+import CartItems from "./Components/Cart/CartItems";
 function App() {
   const dispatch = useDispatch();
-  const {  token } = useSelector((state) => state.authState);
+  const {token} = useSelector((state) => state.authState);
 
   useEffect(() => {
     dispatch(loadUser());
@@ -35,7 +36,8 @@ function App() {
       Cookies.remove('token');
       localStorage.removeItem('token');
     }
-  }, [token]);
+    // eslint-disable-next-line
+  }, []);
 
 
 
@@ -56,6 +58,7 @@ function App() {
               <Route path="/profile" element={<ProtectedRoute><Profile/></ProtectedRoute>}/>   
               <Route path="/profile/editprofile" element={<ProtectedRoute><EditProfile/></ProtectedRoute>}/>
               <Route path="/profile/changepassword" element={<ProtectedRoute><ChangePassword/></ProtectedRoute>}/>
+              <Route path="/cart" element={<CartItems/>}/>
             </Routes>
           </HelmetProvider>
         </main>

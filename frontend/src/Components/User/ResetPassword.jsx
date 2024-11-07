@@ -11,7 +11,7 @@ const ResetPassword = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
 
-  const { loading, user, error, isAuthenticated } = useSelector(state => state.authState);
+  const { loading,error, isAuthenticated,isUpdated } = useSelector(state => state.authState);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { token } = useParams();
@@ -34,13 +34,13 @@ const ResetPassword = () => {
       }, 4000);
     }
 
-    if (isAuthenticated) {
+    if (isUpdated) {
       setSuccessMessage("Password has been reset successfully!");
       setTimeout(() => {
         navigate('/login');
       }, 2000);
-    }
-  }, [error, navigate, isAuthenticated]);
+    } 
+  }, [error, navigate,isUpdated]);
 
   if (loading) return <Loader />;
 
@@ -103,3 +103,5 @@ const ResetPassword = () => {
 };
 
 export default ResetPassword;
+
+

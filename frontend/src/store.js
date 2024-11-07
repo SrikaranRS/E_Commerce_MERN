@@ -4,6 +4,7 @@ import productsReducer from "./Slices/productsSlice";
 import productReducer from "./Slices/productSlice";
 import loginReducer from "./Slices/loginSlice"
 import authReducer from "./Slices/authSlice"
+import cartReducer from "./Slices/cartSice"
 import { thunk } from "redux-thunk";
 
 const store = configureStore({
@@ -11,7 +12,8 @@ const store = configureStore({
       productsState: productsReducer,
       productState:productReducer,
       loginState:loginReducer,
-      authState:authReducer
+      authState:authReducer,
+      cartState:cartReducer
     },
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware().concat(thunk), // Add thunk to middleware

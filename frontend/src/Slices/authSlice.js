@@ -70,6 +70,7 @@ const authSlice = createSlice({
       state.loading = false;
       state.isAuthenticated = false;
       state.user = null;
+      state.token=null;
     },
     logOutFailure(state, action) {
       state.loading = false;
@@ -140,6 +141,7 @@ const authSlice = createSlice({
       state.user = action.payload.user;
       state.error = null;
       state.message = null;
+      state.isUpdated=true
     },
     resetPasswordFail(state, action) {
       state.loading = false;
