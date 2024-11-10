@@ -4,7 +4,7 @@ import productsReducer from "./Slices/productsSlice";
 import productReducer from "./Slices/productSlice";
 import loginReducer from "./Slices/loginSlice"
 import authReducer from "./Slices/authSlice"
-import cartReducer from "./Slices/cartSice"
+import cartReducer from "./Slices/cartSlice"
 import { thunk } from "redux-thunk";
 
 const store = configureStore({

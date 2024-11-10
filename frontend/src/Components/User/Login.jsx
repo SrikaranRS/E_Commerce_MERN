@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { clearError, login } from '../../actions/userActions';
 import Loader from '../Layouts/Loader';
 import MetaData from '../Layouts/MetaData';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link, useLocation } from 'react-router-dom';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -14,6 +14,12 @@ const Login = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const location=useLocation()
+
+  const redirect=location.search?'/'+location.search.split('=')[1]:'/';
+
+  console.log(redirect)
 
   useEffect(() => {
     dispatch(clearError())
@@ -27,7 +33,7 @@ const Login = () => {
 
   useEffect(() => {
     if (isAuthenticated) {
-      navigate('/');
+      navigate(redirect);
     }
   }, [isAuthenticated, navigate]);
 

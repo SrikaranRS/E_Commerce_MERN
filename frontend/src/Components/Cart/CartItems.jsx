@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { FaShoppingCart } from "react-icons/fa";
+import { FaTrashAlt } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../Layouts/Loader";
 import MetaData from "../Layouts/MetaData";
 import { useNavigate } from "react-router-dom";
+import { decreaseQuantity, increaseQuantity, removefromCart } from "../../Slices/cartSlice";
 
 const CartItems = () => {
   const { loading, items, error } = useSelector((state) => state.cartState);
   const [errorMessage, setErrorMessage] = useState("");
   const dispatch = useDispatch();
-  const navigate=useNavigate()
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (error) {
@@ -21,21 +22,38 @@ const CartItems = () => {
     }
   }, [error]);
 
-  const increaseQty = (id, currentQuantity, stock) => {
-    // Logic for increasing quantity (if needed)
+  const increaseQty = (item) => {
+    const count = item.quantity;
+    if (item.stock === 0 || count >= item.stock) {
+      return;
+    }
+    dispatch(increaseQuantity(item.product));
   };
 
-  const decreaseQty = (id, currentQuantity) => {
-    // Logic for decreasing quantity (if needed)
+  const decreaseQty = (item) => {
+    const count = item.quantity;
+
+    if (count === 0) {
+      return;
+    }
+    dispatch(decreaseQuantity(item.product));
   };
 
   const handleRemoveItem = (id) => {
     // Logic for removing an item (if needed)
+    dispatch(removefromCart(id))
   };
 
-  const handleView=(id)=>{
-     navigate(`/productDetails/${id}`);
+  const handleView = (id) => {
+    navigate(`/productDetails/${id}`);
+  };
+
+  const handleCheckout=()=>{
+
+    navigate('/login?redirect=shipping')
+
   }
+
 
   if (loading) return <Loader />;
 
@@ -63,7 +81,7 @@ const CartItems = () => {
           <div className="row">
             {/* Left Section: Products */}
             <div className="col-md-9">
-              <div className="row py-6" >
+              <div className="row py-6">
                 {items.map((item) => (
                   <div className="col-md-4 mb-4" key={item.product}>
                     <div className="card shadow-lg rounded h-100">
@@ -71,8 +89,12 @@ const CartItems = () => {
                         src={item.image || "/images/default.jpg"}
                         className="card-img-top p-2"
                         alt={item.name}
-                        style={{ objectFit: "contain", height: "200px", cursor: "pointer" }}
-                        onClick={()=>handleView(item.product)}
+                        style={{
+                          objectFit: "contain",
+                          height: "200px",
+                          cursor: "pointer",
+                        }}
+                        onClick={() => handleView(item.product)}
                       />
                       <div className="card-body">
                         <h6 className="card-title" style={{ height: "35px" }}>
@@ -83,32 +105,41 @@ const CartItems = () => {
                         <div className="d-flex align-items-center mb-3">
                           <button
                             className="btn border border-danger mr-3 me-2"
-                            onClick={decreaseQty}
+                            onClick={() => {
+                              decreaseQty(item);
+                            }}
                           >
                             -
                           </button>
-                          <span className="quantity-display">{item.quantity}</span>
+                          <span className="quantity-display">
+                            {item.quantity}
+                          </span>
                           <button
                             className="btn border border-success ml-2 ms-1"
+                            onClick={() => {
+                              increaseQty(item);
+                            }}
                           >
                             +
                           </button>
                         </div>
 
-                      {/*   <div>
+                        <div className="d-flex justify-content-between">
                           <p className="mb-0">Stock: {item.stock}</p>
-                        </div> */}
 
-                        <div>
                           <button
                             className="btn btn-primary mt-4"
                             onClick={() => handleRemoveItem(item.product)}
                           >
-                            Remove
+                          <FaTrashAlt/>
                           </button>
                         </div>
 
-                {/*         <div className="position-absolute top-0 end-0 p-2">
+                        <div>
+                        
+                        </div>
+
+                        {/*         <div className="position-absolute top-0 end-0 p-2">
                           <button
                             className="bg-transparent border-0"
                             aria-label="Add to cart"
@@ -132,15 +163,25 @@ const CartItems = () => {
                 <hr />
                 <div className="d-flex justify-content-between">
                   <span>Total Items:</span>
-                  <span>{items.reduce((acc, item) => acc + item.quantity, 0)}</span>
+                  <span>
+                    {items.reduce((acc, item) => acc + item.quantity, 0)}
+                  </span>
                 </div>
                 <div className="d-flex justify-content-between">
                   <span>Total Price:</span>
                   <span>
-                    ₹ {items.reduce((acc, item) => acc + item.price * item.quantity, 0)}
+                    ₹{" "}
+                    {items
+                      .reduce(
+                        (acc, item) => acc + item.price * item.quantity,
+                        0
+                      )
+                      .toFixed(2)}
                   </span>
                 </div>
-                <button className="btn btn-success w-100 mt-3">Proceed to Checkout</button>
+                <button className="btn btn-success w-100 mt-3" onClick={handleCheckout}>
+                  Proceed to Checkout
+                </button>
               </div>
             </div>
           </div>

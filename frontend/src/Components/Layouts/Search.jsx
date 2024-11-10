@@ -7,7 +7,7 @@ const Search = () => {
   const navigate = useNavigate();
 
   const location=useLocation()
-  console.log(location.pathname)
+  //console.log(location.pathname)
 
   useEffect(()=>{
     if(location.pathname==='/'){

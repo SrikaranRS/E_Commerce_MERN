@@ -1,5 +1,5 @@
 import axios from "axios"
-import { addCartRequest, addCartSuccess } from "../Slices/cartSice"
+import { addCartRequest, addCartSuccess } from "../Slices/cartSlice"
 
 export const addCart=(id,quantity)=>async dispatch=>{
 
