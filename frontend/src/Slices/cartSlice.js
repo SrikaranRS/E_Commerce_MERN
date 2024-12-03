@@ -9,26 +9,23 @@ const cartSlice = createSlice({
       : [],
     shippingInfo: localStorage.getItem("shippinginfo")
       ? JSON.parse(localStorage.getItem("shippinginfo"))
-      : [],
+      : {},
     error: null,
   },
   reducers: {
     addCartRequest(state, action) {
       state.loading = true;
     },
+
     addCartSuccess(state, action) {
       const item = action.payload;
-
       const isItemExist = state.items.find((i) => i.product === item.product);
 
       if (isItemExist) {
-        /*     isItemExist.quantity += item.quantity; */
         state.loading = false;
       } else {
         state.items.push(item);
       }
-
-      /*  state.loading = false; */
 
       localStorage.setItem("cart-items", JSON.stringify(state.items));
     },
@@ -42,6 +39,7 @@ const cartSlice = createSlice({
       });
       localStorage.setItem("cart-items", JSON.stringify(state.items));
     },
+
     decreaseQuantity(state, action) {
       state.items = state.items.map((item) => {
         if (item.product === action.payload) {
@@ -53,16 +51,19 @@ const cartSlice = createSlice({
     },
 
     removefromCart(state, action) {
-      const filterItems = state.items.filter((item) => {
-        return item.product !== action.payload;
-      });
+      const filterItems = state.items.filter((item) => item.product !== action.payload);
       localStorage.setItem("cart-items", JSON.stringify(filterItems));
-
       state.items = filterItems;
     },
 
     saveShippingInfo(state, action) {
-      localStorage.setItem("shippinginfo", JSON.stringify(action.payload));
+      const shippingData = action.payload;
+      localStorage.setItem("shippinginfo", JSON.stringify(shippingData));
+      state.shippingInfo = shippingData;
+    },
+
+    setError(state, action) {
+      state.error = action.payload;
     },
   },
 });
@@ -73,7 +74,8 @@ export const {
   increaseQuantity,
   decreaseQuantity,
   removefromCart,
-  saveShippingInfo
+  saveShippingInfo,
+  setError,
 } = cartSlice.actions;
 
 export default cartSlice.reducer;

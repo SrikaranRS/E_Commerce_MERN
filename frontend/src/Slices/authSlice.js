@@ -6,7 +6,9 @@ const authSlice = createSlice({
     loading: false,
     isAuthenticated: false,
     error: null,
-    token: null,
+    token: localStorage.getItem("token")
+    ?localStorage.getItem("token")
+    : null,
     isUpdated: false,
     message:null
   },

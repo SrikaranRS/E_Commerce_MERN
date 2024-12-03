@@ -33,6 +33,7 @@ const connectDatabase = require('./config/database');
 const productRoute = require('./routes/productRoutes');
 const authRoute = require('./routes/authRoutes');
 const orderRoute = require('./routes/orderRoutes');
+const paymentRoute=require('./routes/paymentRoutes')
 
 // Connect to the database
 connectDatabase();
@@ -41,6 +42,7 @@ connectDatabase();
 app.use('/api/v1', productRoute);
 app.use('/api/v1/auth', authRoute);
 app.use('/api/v1/order', orderRoute);
+app.use('/api/v1/payment', paymentRoute);
 
 // Error handling middleware
 app.use(errorMiddleware);

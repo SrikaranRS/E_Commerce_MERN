@@ -6,7 +6,7 @@ import { useLocation, useNavigate, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { FaSignOutAlt, FaUserCircle, FaShoppingCart } from "react-icons/fa"; // Import the logout icon
 import "./component.css"; // Import your custom CSS file for styling
-import { logoutUsers } from "../../actions/userActions";
+import { logout } from "../../actions/userActions";
 import Cookies from "js-cookie";
 const Header = () => {
   const navigate = useNavigate();
@@ -16,7 +16,7 @@ const Header = () => {
   const dispatch = useDispatch();
 
   const handleLogout = () => {
-    dispatch(logoutUsers());
+    dispatch(logout());
     Cookies.remove("token");
     localStorage.removeItem("token");
   };
@@ -36,7 +36,7 @@ const Header = () => {
         <div className="nav col-12 col-sm-6 d-flex justify-content-between align-items-center">
           <Search />
         </div>
-        <div className="col-12 col-sm-3 d-flex justify-content-end mt-2 mt-sm-0">
+        <div style={{marginLeft:"-90px"}} className="col-12 col-sm-3 d-flex justify-content-end mt-2 mt-sm-0">
           {isAuthenticated &&
           location.pathname !== "/login" &&
           location.pathname !== "/forgotpassword" ? (

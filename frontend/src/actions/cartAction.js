@@ -3,7 +3,7 @@ import { addCartRequest, addCartSuccess } from "../Slices/cartSlice"
 
 export const addCart=(id,quantity)=>async dispatch=>{
 
-    dispatch(addCartRequest())
+    //dispatch(addCartRequest())
 
     const response=await axios.get(`http://localhost:5010/api/v1/product/${id}`)
 

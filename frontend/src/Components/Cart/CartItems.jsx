@@ -8,6 +8,7 @@ import { decreaseQuantity, increaseQuantity, removefromCart } from "../../Slices
 
 const CartItems = () => {
   const { loading, items, error } = useSelector((state) => state.cartState);
+  const {isAuthenticated}=useSelector((state)=>state.authState)
   const [errorMessage, setErrorMessage] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -50,7 +51,13 @@ const CartItems = () => {
 
   const handleCheckout=()=>{
 
-    navigate('/login?redirect=shipping')
+    if (!isAuthenticated) {
+      // If not authenticated, redirect to login with a redirect query parameter
+      navigate('/login?redirect=shipping');
+    } else {
+      // Otherwise, proceed to checkout
+      navigate('/shipping');
+    }
 
   }
 
