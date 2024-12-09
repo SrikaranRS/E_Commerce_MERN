@@ -63,7 +63,7 @@ const ProductSearch = () => {
           onClick={toggleFilterPanel}
           aria-label="Toggle Filters"
         >
-          Filter
+          Filterr
         </button>
 
         {errorMessage && (
