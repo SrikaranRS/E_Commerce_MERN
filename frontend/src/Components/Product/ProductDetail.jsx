@@ -72,6 +72,7 @@ const ProductDetail = () => {
                 src={product.images[0].image}
                 alt={product.name}
                 className="img-fluid rounded product-img"
+                style={{height:"400px",width:"400px"}}
               />
             )}
           </div>
